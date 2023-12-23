@@ -1,0 +1,7 @@
+bind = "0.0.0.0"
+accesslog = "-"
+errorlog = "-"
+loglevel = "INFO"
+workers = 1
+
+# https://hypercorn.readthedocs.io/en/latest/how_to_guides/configuring.html

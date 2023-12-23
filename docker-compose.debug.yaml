@@ -1,0 +1,9 @@
+version: "3"
+services:
+  backend:
+    container_name: backend-debug
+    build:
+      context: ./backend
+      target: debug
+    ports:
+      - "5678:5678"

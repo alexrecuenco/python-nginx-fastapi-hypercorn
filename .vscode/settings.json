@@ -1,0 +1,11 @@
+{
+    "files.watcherExclude": {},
+    "python.defaultInterpreterPath": "./.venv/bin/python",
+    "editor.formatOnSave": true,
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+        },
+        "editor.defaultFormatter": "ms-python.black-formatter",
+    },
+}

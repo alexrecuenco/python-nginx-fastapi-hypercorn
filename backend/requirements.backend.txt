@@ -1,0 +1,6 @@
+fastapi
+# 0.15 has some bugs: https://github.com/pgjones/hypercorn/issues/151
+hypercorn==0.14.4
+pydantic
+python-multipart
+# uvicorn[standard] is a bit old now :'(

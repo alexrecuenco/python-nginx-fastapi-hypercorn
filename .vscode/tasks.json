@@ -1,0 +1,47 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "docker:debug-build",
+            "isBackground": true,
+            "command": "docker",
+            "promptOnClose": true,
+            "icon": {
+                "color": "terminal.ansiBlue",
+                "id": "debug-console"
+            },
+            "args": [
+                "compose",
+                "-f",
+                "docker-compose.yaml",
+                "-f",
+                "docker-compose.debug.yaml",
+                "up",
+                "--build"
+            ],
+            // This task is run before some debug tasks.
+            // Problem is, it's a watch script, and since it never exits, VSCode
+            // complains. All this is needed so VSCode just lets it run.
+            // https://stackoverflow.com/a/54017304/7346915
+            "problemMatcher": [
+                {
+                    "pattern": [
+                        {
+                            "regexp": "",
+                            "file": 1,
+                            "location": 2,
+                            "message": 3
+                        }
+                    ],
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": "^backend-debug",
+                        "endsPattern": "Running.*0.0.0.0",
+                    }
+                }
+            ]
+        }
+    ]
+}

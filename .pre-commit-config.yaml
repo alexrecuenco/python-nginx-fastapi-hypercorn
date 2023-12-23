@@ -1,0 +1,42 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+# Frozen: pre-commit autoupdate --freeze
+# https://interrupt.memfault.com/blog/pre-commit
+exclude: ^(|.*/)(env|venv|\.venv|\.env)/.*$
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: c4a0b883114b00d8d76b479c820ce7950211c99b # frozen: v4.5.0
+    hooks:
+      - id: check-executables-have-shebangs # ensures that (non-binary) executables have a shebang.
+      - id: check-shebang-scripts-are-executable # ensures that (non-binary) files with a shebang are executable.
+      - id: check-added-large-files # prevents giant files from being committed.
+        args: ["--maxkb=2000"]
+      - id: check-case-conflict # checks for files that would conflict in case-insensitive filesystems.
+      - id: check-merge-conflict # checks for files that contain merge conflict strings.
+      - id: check-yaml # checks yaml files for parseable syntax.
+      - id: detect-private-key # detects the presence of private keys.
+      - id: end-of-file-fixer # ensures that a file is either empty, or ends with one newline.
+      - id: fix-byte-order-marker # removes utf-8 byte order marker.
+      - id: mixed-line-ending # replaces or checks mixed line ending.
+      - id: requirements-txt-fixer # sorts entries in requirements.txt.
+      - id: trailing-whitespace # trims trailing whitespace.
+  - repo: https://github.com/psf/black
+    rev: 2a1c67e0b2f81df602ec1f6e7aeb030b9709dc7c # frozen: 23.11.0
+    hooks:
+      - id: black-jupyter
+      - id: black
+  - repo: https://github.com/PyCQA/isort
+    rev: dbf82f2dd09ae41d9355bcd7ab69187a19e6bf2f # frozen: 5.12.0
+    hooks:
+      - id: isort
+        args: [--profile=black]
+  - repo: https://github.com/adamchainz/blacken-docs
+    rev: 960ead214cd1184149d366c6d27ca6c369ce46b6 # frozen: 1.16.0
+    hooks:
+      - id: blacken-docs
+        # Handled by black-jupyter and black, so we exclude here
+        exclude: (\.py|\.ipynb)$
+        # see https://github.com/adamchainz/blacken-docs/tree/main#latex for how to use in latex files
+        files: '\.(rst|md|markdown|tex|Rmd|rmd)$'
+        additional_dependencies:
+          - black==23.11.0
