@@ -1,1 +1,2 @@
-from .version import VERSION
+from ._process import process
+from ._version import VERSION
