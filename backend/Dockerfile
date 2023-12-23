@@ -1,4 +1,4 @@
-FROM python:3.11-alpine as build
+FROM python:3.11.7 as build
 RUN pip install --upgrade pip
 
 WORKDIR /app

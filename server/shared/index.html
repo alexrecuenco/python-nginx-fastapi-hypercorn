@@ -1,0 +1,19 @@
+
+<h1>Upload test</h1>
+
+<par>Instructions</par>
+<ol>
+    <li><u title="Only accepts text/csv">Upload file</u></li>
+    <li>It will give you an ID, go to /uploads/{your_id}</li>
+    <li>It will redirect to the attachment download when finished (If it hasn't finished, it will give you the status)</li>
+</ol>
+
+<form
+  name="upload"
+  method="POST"
+  enctype="multipart/form-data"
+  action="uploads"
+>
+<input type="file" name="csv" />
+<input type="submit" name="submit" value="Upload" />
+</form>

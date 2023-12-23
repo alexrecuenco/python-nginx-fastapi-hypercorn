@@ -2,5 +2,6 @@
 -r requirements.processor.txt
 black
 debugpy
-hypothesis
+# hypothesis
 pytest
+pytest-asyncio
