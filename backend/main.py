@@ -15,19 +15,14 @@ def read_root():
 
 @dataclass
 class SimpleForm:
-    name: int = Form(...)
-    content_type: str = Form(...)
-    path: str = Form(...)
-    size: int = Form(...)
+    csv_name: str = Form(...)
+    csv_content_type: str = Form(...)
+    csv_path: str = Form(...)
+    csv_size: int = Form(...)
 
 
 @app.post("/uploads")
-async def receive_upload(request: Request):
-    async with request.form() as form:
-        logger.info("uploaded object %r", form)
-        f = open(form.get("file.path"))
-        lines = f.readlines()
-        print(lines)
-        print(lines)
+async def receive_upload(form: SimpleForm = Depends()):
+    print(open(form.csv_path).readlines())
 
     return {"Hello": "Form"}

@@ -25,8 +25,4 @@ def test_given_example(input_path: Path, output_path: Path):
     processedIO = StringIO()
     process(input_path.open(), output=processedIO)
     processedIO.seek(0)
-    processed = list(processedIO)
-    expected = list(output_path.open())
-    processed.sort()
-    expected.sort()
-    assert processed == expected
+    assert sorted(processedIO) == sorted(output_path.open())

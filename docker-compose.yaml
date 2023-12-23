@@ -20,8 +20,8 @@ services:
     volumes:
       # For quickly doing this, map code
       - ./backend:/app/
-      - uploads:/www/uploads:ro
-      - downloads:/www/downloads:rw
+      - uploads:/var/www/site/uploads:ro
+      - downloads:/var/www/site/downloads:rw
     # expose:
     #   - "8000"
     ports:
@@ -31,10 +31,10 @@ services:
   frontend:
     image: andarius/nginx-upload:1.22-alpine
     volumes:
-      - uploads:/www/uploads:rw
-      - downloads:/www/downloads:ro
-      - ./server/shared:/www/share:ro
-      # - ./server/shared:/www/share/nginx/html:ro
+      - uploads:/var/www/site/uploads:rw
+      - downloads:/var/www/site/downloads:ro
+      - ./server/shared:/var/www/site/shared:ro
+      # - ./server/shared:/var/www/site/share/nginx/html:ro
       - ./server/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./server/conf.d:/etc/nginx/conf.d/:ro
     ports:
@@ -51,7 +51,7 @@ services:
     command: ["/app/init.sh"]
     # user: nginx:www-data
     volumes:
-      - uploads:/www/uploads:rw
+      - uploads:/var/www/site/uploads:rw
       - ./server/init.sh:/app/init.sh
 
 volumes:

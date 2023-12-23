@@ -6,7 +6,7 @@ adduser nginx || echo "User nginx already exists"
 
 
 for i in `seq 0 9`; do
-    mkdir -p "/www/uploads/$i"
+    mkdir -p "/var/www/site/uploads/$i"
 done
 
-chmod 777 -Rf /www/uploads
+chmod 777 -Rf /var/www/site/uploads
