@@ -4,3 +4,4 @@ black
 debugpy
 hypothesis
 pytest
+pytest-asyncio

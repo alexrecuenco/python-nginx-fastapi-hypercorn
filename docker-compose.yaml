@@ -1,5 +1,11 @@
 version: "3"
 services:
+  db:
+    image: redis:7.2.3-alpine
+    volumes:
+      - db:/data
+    expose:
+      - "6379"
   # echo-backend:
   #   image: node:21-alpine3.18
   #   command: ["/app/echo.js"]
@@ -10,9 +16,6 @@ services:
   #     - "8000"
   #   ports:
   #     - "8000:8000"
-  #   # ports:
-  #   #   - "8000:8000"
-  #   #      ^_______^ This maps to host, which ew don't need when running
   backend:
     build:
       context: ./backend
@@ -59,3 +62,4 @@ volumes:
     # Define the volume for file uploads
   downloads:
     # Define the volume for file uploads
+  db:

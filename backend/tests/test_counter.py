@@ -1,10 +1,12 @@
-from io import StringIO
 from pathlib import Path
 
 import pytest
-from hypothesis import given
-from hypothesis import strategies as st
-from module import process
+from aiofiles import open as aio_open
+from aiofiles.tempfile import TemporaryDirectory
+
+# from hypothesis import given
+# from hypothesis import strategies as st
+from module import ProcessCSVConfig, process_csv
 
 
 def local_path(fname: str):
@@ -17,12 +19,15 @@ def input_path():
 
 
 @pytest.fixture
-def output_path():
+def expect_path():
     return local_path("test.output.csv")
 
 
-def test_given_example(input_path: Path, output_path: Path):
-    processedIO = StringIO()
-    process(input_path.open(), output=processedIO)
-    processedIO.seek(0)
-    assert sorted(processedIO) == sorted(output_path.open())
+@pytest.mark.asyncio
+async def test_given_example(input_path: Path, expect_path: Path):
+    dir: str
+    async with aio_open(input_path) as aio_f, TemporaryDirectory("w") as dir:
+        output_path = Path(dir) / "output.csv"
+        await process_csv(aio_f, config=ProcessCSVConfig(output_path))
+        with output_path.open() as out, expect_path.open() as expected:
+            assert sorted(out) == sorted(expected)
