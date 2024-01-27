@@ -1,0 +1,11 @@
+{
+    "method": "POST",
+    "url": "http://localhost:8080/uploads",
+    "body": "LS12ZWdldGFib3VuZGFyeQpDb250ZW50LURpc3Bvc2l0aW9uOiBmb3JtLWRhdGE7IG5hbWU9ImNzdiI7IGZpbGVuYW1lPSJ0ZXN0LmlucHV0LmNzdiIKQ29udGVudC1UeXBlOiB0ZXh0L2NzdgoKU29uZyxEYXRlLE51bWJlciBvZiBQbGF5cwpVbWJyZWxsYSwyMDIwLTAxLTAyLDIwMApVbWJyZWxsYSwyMDIwLTAxLTAxLDEwMApJbiBUaGUgRW5kLDIwMjAtMDEtMDEsNTAwClVtYnJlbGxhLDIwMjAtMDEtMDEsNTAKSW4gVGhlIEVuZCwyMDIwLTAxLTAxLDEwMDAKVW1icmVsbGEsMjAyMC0wMS0wMiw1MApJbiBUaGUgRW5kLDIwMjAtMDEtMDIsNTAwCi0tdmVnZXRhYm91bmRhcnkKQ29udGVudC1EaXNwb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJzdWJtaXQiCgpVcGxvYWQKLS12ZWdldGFib3VuZGFyeS0tCg==",
+    "header": {
+        "Content-Type": [
+            "multipart/form-data",
+            "boundary=vegetaboundary"
+        ]
+    }
+}

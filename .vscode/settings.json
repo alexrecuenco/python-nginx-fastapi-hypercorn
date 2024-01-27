@@ -13,4 +13,12 @@
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "*.target.json",
+            ],
+            "url": "https://raw.githubusercontent.com/tsenart/vegeta/master/lib/target.schema.json"
+        },
+    ]
 }

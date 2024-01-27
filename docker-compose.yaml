@@ -6,6 +6,8 @@ services:
       - db:/data
     expose:
       - "6379"
+    cpu_count: 1
+    cpu_percent: 30
   # echo-backend:
   #   image: node:21-alpine3.18
   #   command: ["/app/echo.js"]
@@ -30,8 +32,11 @@ services:
     ports:
       - "8000:8000"
     #      ^_______^ This maps to host, which ew don't need when running
+    cpu_count: 1
+    cpu_percent: 80
 
   frontend:
+    platform: "linux/amd64"
     image: andarius/nginx-upload:1.22-alpine
     volumes:
       - uploads:/var/www/site/uploads:rw
@@ -56,6 +61,8 @@ services:
     volumes:
       - uploads:/var/www/site/uploads:rw
       - ./server/init.sh:/app/init.sh
+    cpu_count: 2
+    cpu_percent: 50
 
 volumes:
   uploads:
