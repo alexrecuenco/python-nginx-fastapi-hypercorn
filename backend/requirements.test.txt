@@ -1,5 +1,4 @@
--r requirements.backend.txt
--r requirements.processor.txt
+-r requirements.txt
 black
 debugpy
 # hypothesis
