@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import os
+import time
 import uuid
 from dataclasses import asdict, dataclass
 from enum import Enum
@@ -11,9 +12,21 @@ from module import AsyncTaskManager, ProcessCSVConfig, process_csv
 from module.async_counter import CounterType
 from starlette.responses import RedirectResponse
 
+# Create a logger specific to the current module
+logger = logging.getLogger(__name__)
+
+# Configure logging for the current module
+handler = logging.StreamHandler()  # You can change this to a file handler if needed
+formatter = logging.Formatter(
+    "%(asctime)s - %(levelname)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S"
+)
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
+
 if os.getenv("DEBUG"):
     logging.basicConfig(level="DEBUG")
-logger = logging.getLogger(__file__)
+
 app = FastAPI()
 
 
@@ -33,14 +46,26 @@ class SimpleForm:
 
 
 async def process_task(form: SimpleForm, task_id: str):
-    async with AsyncTaskManager.manage_processing(task_id) as task:
-        async with aiofiles.open(form.csv_path) as f:
-            output_path = os.path.join(_DOWNLOAD_FOLDER, task.output_filename)
-            # TODO: Use in-memory counter if form.csv_size is small
-            config = ProcessCSVConfig(
-                output_path=output_path, counter_type=CounterType.redis
-            )
-            await process_csv(f, config=config)
+    start_time = time.time()
+    logger.info("Task started %s", task_id)
+    try:
+        async with AsyncTaskManager.manage_processing(task_id) as task:
+            async with aiofiles.open(form.csv_path) as f:
+                output_path = os.path.join(_DOWNLOAD_FOLDER, task.output_filename)
+                # TODO: Use in-memory counter if form.csv_size is small
+                config = ProcessCSVConfig(
+                    output_path=output_path, counter_type=CounterType.redis
+                )
+                await process_csv(f, config=config)
+    except:
+        logger.error("Task err %s", stack_info=True)
+        raise
+    finally:
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        logger.info(
+            "Task completed %s. Time taken: %.2f seconds", task_id, elapsed_time
+        )
 
 
 def future_process_task(form: SimpleForm) -> str:
@@ -58,7 +83,8 @@ def health_check():
 @app.post("/uploads")
 async def receive_upload(form: SimpleForm = Depends()):
     task_id = future_process_task(form)
-    return {"task_id": task_id}
+    # https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/303
+    return RedirectResponse(url=f"/uploads/{task_id}", status_code=303)
 
 
 @app.get("/uploads/{task_id}")

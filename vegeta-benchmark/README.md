@@ -1,10 +1,16 @@
 # Benchmark using vegeta
 
+
 Using https://github.com/tsenart/vegeta
 
 This is mostly following https://github.com/ovrdoz/vegeta-upload-multipart-data
 
 Using
+
+## Quick start
+Run server with `docker compose up --build`
+
+Run benchmark with `./run.sh`
 
 
 ## How to run

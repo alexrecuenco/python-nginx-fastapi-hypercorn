@@ -10,3 +10,4 @@ for i in `seq 0 9`; do
 done
 
 chmod 777 -Rf /var/www/site/uploads
+chmod 777 -Rf /var/www/site/downloads

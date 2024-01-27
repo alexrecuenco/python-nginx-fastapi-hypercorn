@@ -60,6 +60,7 @@ services:
     # user: nginx:www-data
     volumes:
       - uploads:/var/www/site/uploads:rw
+      - downloads:/var/www/site/downloads:rw
       - ./server/init.sh:/app/init.sh
     cpu_count: 2
     cpu_percent: 50

@@ -1,7 +1,7 @@
 bind = "0.0.0.0"
 accesslog = "-"
 errorlog = "-"
-loglevel = "WARN"
+loglevel = "INFO"
 workers = 1
-
+backlog = 500
 # https://hypercorn.readthedocs.io/en/latest/how_to_guides/configuring.html
