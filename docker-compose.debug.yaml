@@ -1,9 +1,16 @@
 version: "3"
 services:
+  db:
+    ports:
+      - "6379:6379"
   backend:
     container_name: backend-debug
+    volumes:
+      # For quickly doing this, map code
+      - ./backend:/app/
     build:
       context: ./backend
       target: debug
     ports:
+      - "8000:8000"
       - "5678:5678"
